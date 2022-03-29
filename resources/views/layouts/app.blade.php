@@ -1,37 +1,29 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Covid 19 | RFS</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" />
+    @yield('css')
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <div class="logo-img">
-                    <img src="img/rfs_logo.png" alt="">
-                </div>
-                <div class="logo-text">
-                    <a href="">RFS Covid-19 app</a>
-                </div>
-            </div>
-            <ul class="menu">
-                <li class="menu-item">
-                    <a href="#">provinces</a>
-                </li>
-                <li class="menu-item menu-item-maj-info">
-                    <span>Dernière mise à jour</span>
-                    <span class="btn btn-blue">Janvier 2022</span>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    @yield('content')
+    <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="/">
+                <img src="img/rfs_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> RFS Consulting
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        @yield('content')
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/chart.js') }}"></script>
 </body>
-
 </html>

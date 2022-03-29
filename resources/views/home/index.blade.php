@@ -1,53 +1,99 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+@endsection
+
 @section('content')
-<div class="main">
-    <!-- sera mise à jour au click sur une province -->
-    <aside class="stats">
-        <div class="stats-cumul-case">
-            <h1 class="stats-cumul-case-province">stat générale du pays</h1>
-            <div class="stats-cumul-case-numbers">10000</div>
-            <div class="stats-cumul-case-title">cas cumulé</div>
-        </div>
-        <div class="stats-item">
-            <div class="stats-item-value">
-                200
-            </div>
-            <div class="stats-item-title">
-                Nouveaux cas confirmé
-            </div>
-        </div>
-        <div class="stats-item" id="new_death">
-            <div class="stats-item-value">
-                200
-            </div>
-            <div class="stats-item-title">
-                Nouveaux cas de décés
-            </div>
-        </div>
-        <div class="stats-item" id="cumul_death">
-            <div class="stats-item-value">
-                200
-            </div>
-            <div class="stats-item-title">
-                décés cumulés
-            </div>
-        </div>
-    </aside>
-    <div class="drawable-area">
-        <div class="map"></div>
-        <div class="charts"></div>
+<div class="row mt-4 mb-6">
+    <div class="col-md-12">
+        <h1>Statistiques sur la vaccination contre la COVID-19 en RDC</h1>
+        <span>mise à jour le 10/01/2022</span>
     </div>
-    <aside class="provinces-list">
-        <div class="provinces-list-item">
-            <h1 class="provinces-list-item-title">province nom</h1>
-            <div class="provinces-list-item-content">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga temporibus voluptate error voluptates accusamus exercitationem unde architecto cumque provident accusantium ipsa id quidem similique possimus nulla in magnam dolor corporis perspiciatis, at
-                    cupiditate ea.
-                </p>
+</div>
+<div class="row">
+    <div class="col-md-6 stats">
+        <div class="row stats-items">
+            <div class="col-md-12 mb-2 stats-items-item-row">
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-calendrier.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        1000 jours
+                    </div>
+                    <div class="column-label">
+                        Depuis le début de la vaccination
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-seringue.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        10.000
+                    </div>
+                    <div class="column-label">
+                        Doses administrées
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-2 stats-items-item-row">
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-couverture.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        65%
+                    </div>
+                    <div class="column-label">
+                        Couverture vaccinale
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-camion.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        100000
+                    </div>
+                    <div class="column-label">
+                        Doses livrés
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-2 stats-items-item-row">
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-hopital.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        550
+                    </div>
+                    <div class="column-label">
+                        Sites disponible
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-img">
+                        <img src="img/icon-user-white.png" alt="">
+                    </div>
+                    <div class="column-numbers">
+                        1000000
+                    </div>
+                    <div class="column-label">
+                        habitants
+                    </div>
+                </div>
             </div>
         </div>
-    </aside>
+    </div>
+    <div id="map" class="col-md-5">
+    </div>
 </div>
 @endsection

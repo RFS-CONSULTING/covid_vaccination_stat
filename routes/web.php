@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\DatavaccinationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LimitpaysController;
+use App\Http\Controllers\LimitprovincesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('home.dashboard');
+Route::get('/limitPays_layer', [LimitpaysController::class,'index'])->name('pays.index');
+Route::get('/provinces_layer', [LimitprovincesController::class,'index'])->name('provinces.index');
+Route::get('/vaccination_layer', [DatavaccinationController::class,'index'])->name('vaccination.index');
