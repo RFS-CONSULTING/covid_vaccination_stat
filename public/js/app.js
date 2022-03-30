@@ -2200,6 +2200,17 @@ var OpenStreetMapLayer = leaflet__WEBPACK_IMPORTED_MODULE_0___default().tileLaye
   maxZoom: 28,
   minNativeZoom: 0,
   maxNativeZoom: 19
+}).addTo(map);
+map.createPane('pane_GoogleSatellite_0');
+map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+var layer_GoogleSatellite_0 = leaflet__WEBPACK_IMPORTED_MODULE_0___default().tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+  pane: 'pane_GoogleSatellite_0',
+  opacity: 1.0,
+  attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+  minZoom: 1,
+  maxZoom: 28,
+  minNativeZoom: 0,
+  maxNativeZoom: 20
 }).addTo(map); // axios.get('/limitPays_layer').then(data => {
 //     let StoredData = data.data.pays_layer_data;
 //     let rdc_data_geojson = JSON.parse(StoredData);
@@ -2259,16 +2270,17 @@ axios__WEBPACK_IMPORTED_MODULE_1___default().get('/vaccination_layer').then(func
     weight: 1,
     opacity: 1,
     fillOpacity: 0.8
-  };
-  console.log(points_data_geojson);
+  }; // var greenIcon = new L.Icon({
+  //     iconUrl: '/img/pointer2.png',
+  // })
+
   map.createPane('pane_points');
   map.getPane('pane_points').style.zIndex = 403;
   map.getPane('pane_points').style['mix-blend-mode'] = 'normal';
   var points_layer = leaflet__WEBPACK_IMPORTED_MODULE_0___default().geoJSON(points_data_geojson, {
     onEachFeature: handle_province_points,
     // pointToLayer: function(feature, latlng) {
-    //     console.log(feature)
-    //     return L.circleMarker(feature.geometry.coordinates, MarkerOptions);
+    //     return L.marker(latlng, { icon: greenIcon });
     // },
     pane: 'pane_points',
     layerName: 'provinces_points'
@@ -2280,7 +2292,8 @@ axios__WEBPACK_IMPORTED_MODULE_1___default().get('/vaccination_layer').then(func
 }); //#endregion
 
 var LayerControl = leaflet__WEBPACK_IMPORTED_MODULE_0___default().control.layers({}, {
-  OpenStreetMapLayer: OpenStreetMapLayer
+  OpenStreetMapLayer: OpenStreetMapLayer,
+  GoogleMapLayer: layer_GoogleSatellite_0
 }).addTo(map);
 
 /***/ }),

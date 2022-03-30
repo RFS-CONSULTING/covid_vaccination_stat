@@ -43,3 +43,21 @@
     height: 500px;
     margin-left: 20px;
 }
+
+footer {
+    height: 50px;
+    color: #fff;
+    background-color: var(--mainBgColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .copy {
+    width: 30%;
+    text-align: center;
+}
+
+footer .copy a {
+    color: #fff;
+}

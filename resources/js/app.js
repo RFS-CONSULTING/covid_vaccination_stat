@@ -43,6 +43,19 @@ const OpenStreetMapLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{
     maxNativeZoom: 19
 }).addTo(map);
 
+map.createPane('pane_GoogleSatellite_0');
+map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    pane: 'pane_GoogleSatellite_0',
+    opacity: 1.0,
+    attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+    minZoom: 1,
+    maxZoom: 28,
+    minNativeZoom: 0,
+    maxNativeZoom: 20
+}).addTo(map);
+
+
 
 // axios.get('/limitPays_layer').then(data => {
 //     let StoredData = data.data.pays_layer_data;
@@ -115,7 +128,9 @@ axios.get('/vaccination_layer').then(data => {
         fillOpacity: 0.8
     };
 
-    console.log(points_data_geojson)
+    // var greenIcon = new L.Icon({
+    //     iconUrl: '/img/pointer2.png',
+    // })
 
     map.createPane('pane_points');
     map.getPane('pane_points').style.zIndex = 403;
@@ -124,8 +139,7 @@ axios.get('/vaccination_layer').then(data => {
     let points_layer = L.geoJSON(points_data_geojson, {
         onEachFeature: handle_province_points,
         // pointToLayer: function(feature, latlng) {
-        //     console.log(feature)
-        //     return L.circleMarker(feature.geometry.coordinates, MarkerOptions);
+        //     return L.marker(latlng, { icon: greenIcon });
         // },
         pane: 'pane_points',
         layerName: 'provinces_points',
@@ -141,4 +155,5 @@ axios.get('/vaccination_layer').then(data => {
 
 const LayerControl = L.control.layers({}, {
     OpenStreetMapLayer: OpenStreetMapLayer,
+    GoogleMapLayer: layer_GoogleSatellite_0
 }).addTo(map)

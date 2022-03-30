@@ -25,7 +25,7 @@
                         <img src="img/icon-calendrier.png" alt="">
                     </div>
                     <div class="column-numbers">
-                        1000 jours
+                        {{$pays->nbre_jours}} jours
                     </div>
                     <div class="column-label">
                         Depuis le début de la vaccination
@@ -57,13 +57,13 @@
                 </div>
                 <div class="column">
                     <div class="column-img">
-                        <img src="img/icon-camion.png" alt="">
+                        <img src="img/icon-medical.png" alt="">
                     </div>
                     <div class="column-numbers">
                         100000
                     </div>
                     <div class="column-label">
-                        Doses livrés
+                        Personnes vaccinées
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                         <img src="img/icon-hopital.png" alt="">
                     </div>
                     <div class="column-numbers">
-                        550
+                        {{$pays->nbre_sites}}
                     </div>
                     <div class="column-label">
                         Sites disponible
@@ -81,13 +81,13 @@
                 </div>
                 <div class="column">
                     <div class="column-img">
-                        <img src="img/icon-user-white.png" alt="">
+                        <img src="img/icon-camion.png" alt="">
                     </div>
                     <div class="column-numbers">
                         1000000
                     </div>
                     <div class="column-label">
-                        habitants
+                        Doses livrés
                     </div>
                 </div>
             </div>
