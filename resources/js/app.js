@@ -32,15 +32,17 @@ function handle_province_polygon(feature, layer) {
         table_body_ville.innerHTML = '';
         axios.get('/sites_vaccination/' + feature.properties.ogc_fid).then(data => {
             // console.log(data.data.sites)
+            let table_row = ``;
             data.data.sites.forEach(site => {
-                let table_row = `<tr>
+                table_row += `<tr>
                 <td>${site.nom}</td>
                 <td>${site.adresse}</td>
                 <td>${site.horaire}</td>
                 <td>${site.contact}</td>
                 </tr>`;
-                table_body.innerHTML = table_row;
             });
+            table_body.innerHTML = table_row;
+            nbr_sites.innerHTML = data.data.sites.length ? data.data.sites.length : 0
         })
         axios.get('/villes/' + feature.properties.ogc_fid).then(data => {
             let table_row = ``;
@@ -52,8 +54,11 @@ function handle_province_polygon(feature, layer) {
             });
             table_body_ville.innerHTML = table_row;
         })
-        nbr_sites.innerHTML = feature.properties.nbre_sites ? feature.properties.nbre_sites : 0
-        jours_vacci.innerHTML = feature.properties.nbre_jours ? feature.properties.nbre_jours : 0 + ' jours'
+        axios.get('/province/' + feature.properties.ogc_fid).then(data => {
+            let province = data.data.province_attrib
+                //console.log(province)
+            jours_vacci.innerHTML = province.date_debut ? province.date_debut + ' jours' : 0 + ' jours'
+        })
         pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0
     })
 }
@@ -98,7 +103,6 @@ var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x
 
 axios.get('/provinces_layer').then(data => {
     let StoredData = data.data.province_layer_data;
-    let province_attrib = data.data.province_attrib
     let provinces_data_geojson = JSON.parse(StoredData);
 
     //  console.log(province_attrib)

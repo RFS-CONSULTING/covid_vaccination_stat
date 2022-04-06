@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class,'index'])->name('home.dashboard');
 Route::get('/limitPays_layer', [LimitpaysController::class,'index'])->name('pays.index');
 Route::get('/provinces_layer', [LimitprovincesController::class,'index'])->name('provinces.index');
+Route::get('/province/{id}', [LimitprovincesController::class,'show'])->name('provinces.show');
 Route::get('/vaccination_layer', [DatavaccinationController::class,'index'])->name('vaccination.index');
 Route::get('/sites_vaccination/{province_id}', [SitesVaccinationController::class,'show'])->name('site_vaccination.show');
 Route::get('/villes/{province_id}', [VilleController::class,'index'])->name('ville.index');

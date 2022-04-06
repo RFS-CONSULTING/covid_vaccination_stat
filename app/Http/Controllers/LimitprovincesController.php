@@ -17,12 +17,8 @@ class LimitprovincesController extends Controller
         //
         $rdc_layer_data = LimitProvince::allAsGeojson();
         $rdc_json_data = json_decode($rdc_layer_data[0]->row_to_json);
-      //  dd($rdc_json_data->features);
-        foreach ($rdc_json_data->features as $feature) {
-            $feature->properties->date_debut =  \Carbon\Carbon::parse($feature->properties->date_debut)->diffInDays();
-        }
-        return response()->json(['province_layer_data' => $rdc_layer_data[0]->row_to_json,
-                                 'province_attrib'=>$rdc_json_data->features]);
+    
+        return response()->json(['province_layer_data' => $rdc_layer_data[0]->row_to_json]);
     }
 
     /**
@@ -55,6 +51,10 @@ class LimitprovincesController extends Controller
     public function show($id)
     {
         //
+        $province = LimitProvince::where('ogc_fid',$id)->get();
+        $province[0]->date_debut = \Carbon\Carbon::parse($province[0]->date_debut)->diffInDays();
+      //  dd($province[0]);
+        return response()->json(['province_attrib' => $province[0]]);
     }
 
     /**

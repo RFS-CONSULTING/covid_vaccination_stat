@@ -2192,10 +2192,12 @@ function handle_province_polygon(feature, layer) {
     table_body_ville.innerHTML = '';
     axios__WEBPACK_IMPORTED_MODULE_1___default().get('/sites_vaccination/' + feature.properties.ogc_fid).then(function (data) {
       // console.log(data.data.sites)
+      var table_row = "";
       data.data.sites.forEach(function (site) {
-        var table_row = "<tr>\n                <td>".concat(site.nom, "</td>\n                <td>").concat(site.adresse, "</td>\n                <td>").concat(site.horaire, "</td>\n                <td>").concat(site.contact, "</td>\n                </tr>");
-        table_body.innerHTML = table_row;
+        table_row += "<tr>\n                <td>".concat(site.nom, "</td>\n                <td>").concat(site.adresse, "</td>\n                <td>").concat(site.horaire, "</td>\n                <td>").concat(site.contact, "</td>\n                </tr>");
       });
+      table_body.innerHTML = table_row;
+      nbr_sites.innerHTML = data.data.sites.length ? data.data.sites.length : 0;
     });
     axios__WEBPACK_IMPORTED_MODULE_1___default().get('/villes/' + feature.properties.ogc_fid).then(function (data) {
       var table_row = "";
@@ -2204,8 +2206,11 @@ function handle_province_polygon(feature, layer) {
       });
       table_body_ville.innerHTML = table_row;
     });
-    nbr_sites.innerHTML = feature.properties.nbre_sites ? feature.properties.nbre_sites : 0;
-    jours_vacci.innerHTML = feature.properties.nbre_jours ? feature.properties.nbre_jours : 0 + ' jours';
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/province/' + feature.properties.ogc_fid).then(function (data) {
+      var province = data.data.province_attrib; //console.log(province)
+
+      jours_vacci.innerHTML = province.date_debut ? province.date_debut + ' jours' : 0 + ' jours';
+    });
     pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0;
   });
 }
@@ -2241,7 +2246,6 @@ var layer_GoogleSatellite_0 = leaflet__WEBPACK_IMPORTED_MODULE_0___default().til
 }).addTo(map);
 axios__WEBPACK_IMPORTED_MODULE_1___default().get('/provinces_layer').then(function (data) {
   var StoredData = data.data.province_layer_data;
-  var province_attrib = data.data.province_attrib;
   var provinces_data_geojson = JSON.parse(StoredData); //  console.log(province_attrib)
 
   map.createPane('pane_provinces_pays');
