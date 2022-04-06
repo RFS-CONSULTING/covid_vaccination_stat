@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-primary">
+    <nav class="navbar position-sticky sticky-top navbar-light bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="/">
                 <img src="img/rfs_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> RFS Consulting

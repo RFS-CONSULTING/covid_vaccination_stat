@@ -14,7 +14,7 @@ class LimitProvince extends Model
     protected $primaryKey = 'ogc_fid';
     public $timestamps = false;
 
-    protected $fillable = ['nom','chef_lieu','pop_totale','pers_vacci','nbr_sites','nbr_jours','pop_adulte','pers_cib_v'];
+    protected $fillable = ['nom','chef_lieu','pop_totale','pers_vacci','nbre_sites','nbre_jours','pop_adulte','pers_cib_v','date_debut'];
 
     public static function allAsGeojson()
     {
@@ -22,7 +22,7 @@ class LimitProvince extends Model
         FROM (SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features
         FROM (SELECT 'Feature' As type
            ,ST_AsGeoJSON(ST_Transform((lg.wkb_geometry),4326),6)::jsonb As geometry
-           ,row_to_json((SELECT l FROM (SELECT ogc_fid, nom) As l)) As properties
+           ,row_to_json((SELECT l FROM (SELECT ogc_fid, nom, chef_lieu, pop_totale, pers_vacci, nbre_sites, nbre_jours, pop_adulte, date_debut) As l)) As properties
         FROM limite_de_province02 As lg) As f)  As fc;");
         return $limits;
     }

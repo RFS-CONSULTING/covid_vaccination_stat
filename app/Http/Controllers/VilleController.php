@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LimitProvince;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 
-class LimitprovincesController extends Controller
+class VilleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *  @param  int  $province_id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($province_id)
     {
         //
-        $rdc_layer_data = LimitProvince::allAsGeojson();
-        $rdc_json_data = json_decode($rdc_layer_data[0]->row_to_json);
-      //  dd($rdc_json_data->features);
-        foreach ($rdc_json_data->features as $feature) {
-            $feature->properties->date_debut =  \Carbon\Carbon::parse($feature->properties->date_debut)->diffInDays();
-        }
-        return response()->json(['province_layer_data' => $rdc_layer_data[0]->row_to_json,
-                                 'province_attrib'=>$rdc_json_data->features]);
+        $villes = Ville::where('provinces_ogc_fid',$province_id)->get();
+        return response()->json(['villes' => $villes]);
     }
 
     /**

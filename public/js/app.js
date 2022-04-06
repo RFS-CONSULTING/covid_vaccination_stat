@@ -2169,7 +2169,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
+ // html Elements
 
+var jours_vacci = document.querySelector('#jours_vacci');
+var doses = document.querySelector('#doses');
+var couverture = document.querySelector('#couverture_vaccinale');
+var pers_vacci = document.querySelector('#pers_vacci');
+var nbr_sites = document.querySelector('#nbr_sites');
+var doses_livres = document.querySelector('#doses_livres');
+var table_body = document.querySelector('#site_vacc tbody');
+var table_body_ville = document.querySelector('#tab_villes tbody');
 var map = leaflet__WEBPACK_IMPORTED_MODULE_0___default().map('map', {
   zoomControl: true,
   maxZoom: 28,
@@ -2177,17 +2186,35 @@ var map = leaflet__WEBPACK_IMPORTED_MODULE_0___default().map('map', {
 }).fitBounds([[-10.27244102712632, 11.78521081569146], [4.808373156945728, 32.29619908606451]]); // #region handler functions
 // fonctions for feature
 
-function handle_province_polygon(feature, layer) {}
+function handle_province_polygon(feature, layer) {
+  layer.on('click', function (e) {
+    table_body.innerHTML = '';
+    table_body_ville.innerHTML = '';
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/sites_vaccination/' + feature.properties.ogc_fid).then(function (data) {
+      // console.log(data.data.sites)
+      data.data.sites.forEach(function (site) {
+        var table_row = "<tr>\n                <td>".concat(site.nom, "</td>\n                <td>").concat(site.adresse, "</td>\n                <td>").concat(site.horaire, "</td>\n                <td>").concat(site.contact, "</td>\n                </tr>");
+        table_body.innerHTML = table_row;
+      });
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/villes/' + feature.properties.ogc_fid).then(function (data) {
+      var table_row = "";
+      data.data.villes.forEach(function (site) {
+        table_row += "<tr>\n                <td>".concat(site.nom, "</td>\n                <td>10000</td>\n                </tr>");
+      });
+      table_body_ville.innerHTML = table_row;
+    });
+    nbr_sites.innerHTML = feature.properties.nbre_sites ? feature.properties.nbre_sites : 0;
+    jours_vacci.innerHTML = feature.properties.nbre_jours ? feature.properties.nbre_jours : 0 + ' jours';
+    pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0;
+  });
+}
 
 function handle_province_points(feature, layer) {
-  layer.on('click', function (e) {
-    e.target.setStyle({
-      fillColor: "black",
-      fillOpacity: 1
-    });
+  layer.on('click', function (e) {// e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
   });
 } // #endregion
-// #region layer
+// #region bases_layer
 
 
 map.createPane('pane_OpenStreetMap_1');
@@ -2211,33 +2238,11 @@ var layer_GoogleSatellite_0 = leaflet__WEBPACK_IMPORTED_MODULE_0___default().til
   maxZoom: 28,
   minNativeZoom: 0,
   maxNativeZoom: 20
-}).addTo(map); // axios.get('/limitPays_layer').then(data => {
-//     let StoredData = data.data.pays_layer_data;
-//     let rdc_data_geojson = JSON.parse(StoredData);
-//     console.log(rdc_data_geojson)
-//     map.createPane('pane_limit_pays');
-//     map.getPane('pane_limit_pays').style.zIndex = 402;
-//     map.getPane('pane_limit_pays').style['mix-blend-mode'] = 'normal';
-//     L.geoJSON(rdc_data_geojson, {
-//         onEachFeature: handle_ville,
-//         pane: 'pane_limit_pays',
-//         layerName: 'limit_pays',
-//         style: function() {
-//             return {
-//                 color: "#00008c",
-//                 opacity: 0.6,
-//                 fillColor: '#333333',
-//                 fillOpacity: 1
-//             }
-//         }
-//     }).addTo(map)
-// }).catch(error => {
-//     console.error(error)
-// })
-
+}).addTo(map);
 axios__WEBPACK_IMPORTED_MODULE_1___default().get('/provinces_layer').then(function (data) {
   var StoredData = data.data.province_layer_data;
-  var provinces_data_geojson = JSON.parse(StoredData); //console.log(provinces_data_geojson)
+  var province_attrib = data.data.province_attrib;
+  var provinces_data_geojson = JSON.parse(StoredData); //  console.log(province_attrib)
 
   map.createPane('pane_provinces_pays');
   map.getPane('pane_provinces_pays').style.zIndex = 403;

@@ -1,6 +1,19 @@
 import L from 'leaflet';
 import axios from 'axios';
 
+
+// html Elements
+
+var jours_vacci = document.querySelector('#jours_vacci')
+var doses = document.querySelector('#doses')
+var couverture = document.querySelector('#couverture_vaccinale')
+var pers_vacci = document.querySelector('#pers_vacci')
+var nbr_sites = document.querySelector('#nbr_sites')
+var doses_livres = document.querySelector('#doses_livres')
+var table_body = document.querySelector('#site_vacc tbody')
+var table_body_ville = document.querySelector('#tab_villes tbody')
+
+
 var map = L.map('map', {
     zoomControl: true,
     maxZoom: 28,
@@ -14,22 +27,48 @@ var map = L.map('map', {
 // fonctions for feature
 
 function handle_province_polygon(feature, layer) {
-
+    layer.on('click', function(e) {
+        table_body.innerHTML = '';
+        table_body_ville.innerHTML = '';
+        axios.get('/sites_vaccination/' + feature.properties.ogc_fid).then(data => {
+            // console.log(data.data.sites)
+            data.data.sites.forEach(site => {
+                let table_row = `<tr>
+                <td>${site.nom}</td>
+                <td>${site.adresse}</td>
+                <td>${site.horaire}</td>
+                <td>${site.contact}</td>
+                </tr>`;
+                table_body.innerHTML = table_row;
+            });
+        })
+        axios.get('/villes/' + feature.properties.ogc_fid).then(data => {
+            let table_row = ``;
+            data.data.villes.forEach(site => {
+                table_row += `<tr>
+                <td>${site.nom}</td>
+                <td>10000</td>
+                </tr>`;
+            });
+            table_body_ville.innerHTML = table_row;
+        })
+        nbr_sites.innerHTML = feature.properties.nbre_sites ? feature.properties.nbre_sites : 0
+        jours_vacci.innerHTML = feature.properties.nbre_jours ? feature.properties.nbre_jours : 0 + ' jours'
+        pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0
+    })
 }
 
 
 function handle_province_points(feature, layer) {
     layer.on('click', function(e) {
-        e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
+
+        // e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
     });
 }
 
 // #endregion
 
-
-
-// #region layer
-
+// #region bases_layer
 map.createPane('pane_OpenStreetMap_1');
 map.getPane('pane_OpenStreetMap_1').style.zIndex = 401;
 
@@ -45,6 +84,7 @@ const OpenStreetMapLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{
 
 map.createPane('pane_GoogleSatellite_0');
 map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+
 var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     pane: 'pane_GoogleSatellite_0',
     opacity: 1.0,
@@ -56,40 +96,12 @@ var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x
 }).addTo(map);
 
 
-
-// axios.get('/limitPays_layer').then(data => {
-//     let StoredData = data.data.pays_layer_data;
-//     let rdc_data_geojson = JSON.parse(StoredData);
-
-//     console.log(rdc_data_geojson)
-//     map.createPane('pane_limit_pays');
-//     map.getPane('pane_limit_pays').style.zIndex = 402;
-//     map.getPane('pane_limit_pays').style['mix-blend-mode'] = 'normal';
-
-
-//     L.geoJSON(rdc_data_geojson, {
-//         onEachFeature: handle_ville,
-//         pane: 'pane_limit_pays',
-//         layerName: 'limit_pays',
-//         style: function() {
-//             return {
-//                 color: "#00008c",
-//                 opacity: 0.6,
-//                 fillColor: '#333333',
-//                 fillOpacity: 1
-//             }
-//         }
-//     }).addTo(map)
-
-// }).catch(error => {
-//     console.error(error)
-// })
-
 axios.get('/provinces_layer').then(data => {
     let StoredData = data.data.province_layer_data;
+    let province_attrib = data.data.province_attrib
     let provinces_data_geojson = JSON.parse(StoredData);
 
-    //console.log(provinces_data_geojson)
+    //  console.log(province_attrib)
 
     map.createPane('pane_provinces_pays');
     map.getPane('pane_provinces_pays').style.zIndex = 403;

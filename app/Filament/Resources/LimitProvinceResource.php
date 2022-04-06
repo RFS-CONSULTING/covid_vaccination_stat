@@ -32,6 +32,7 @@ class LimitProvinceResource extends Resource
                 TextInput::make('nbre_jours'),
                 TextInput::make('pop_adulte'),
                 TextInput::make('pers_cib_v'),
+                TextInput::make('date_debut'),
             ]);
     }
 

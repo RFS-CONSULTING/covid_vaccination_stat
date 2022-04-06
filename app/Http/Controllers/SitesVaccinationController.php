@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LimitProvince;
+use App\Models\SitesVaccination;
 use Illuminate\Http\Request;
 
-class LimitprovincesController extends Controller
+class SitesVaccinationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,6 @@ class LimitprovincesController extends Controller
     public function index()
     {
         //
-        $rdc_layer_data = LimitProvince::allAsGeojson();
-        $rdc_json_data = json_decode($rdc_layer_data[0]->row_to_json);
-      //  dd($rdc_json_data->features);
-        foreach ($rdc_json_data->features as $feature) {
-            $feature->properties->date_debut =  \Carbon\Carbon::parse($feature->properties->date_debut)->diffInDays();
-        }
-        return response()->json(['province_layer_data' => $rdc_layer_data[0]->row_to_json,
-                                 'province_attrib'=>$rdc_json_data->features]);
     }
 
     /**
@@ -49,12 +41,14 @@ class LimitprovincesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $province_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($province_id)
     {
         //
+        $sites = SitesVaccination::where('provinces_ogc_fid',$province_id)->get();
+        return response()->json(['sites' => $sites]);
     }
 
     /**

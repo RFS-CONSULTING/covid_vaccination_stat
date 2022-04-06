@@ -34,6 +34,8 @@ class LimitPaysResource extends Resource
                 TextInput::make('nbre_sites'),
                 TextInput::make('nbre_jours'),
                 TextInput::make('pop_adulte'),
+                TextInput::make('date_debut'),
+                
             ]);
     }
 

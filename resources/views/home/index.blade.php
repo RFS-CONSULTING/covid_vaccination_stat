@@ -24,8 +24,8 @@
                     <div class="column-img">
                         <img src="img/icon-calendrier.png" alt="">
                     </div>
-                    <div class="column-numbers">
-                        {{$pays->nbre_jours}} jours
+                    <div class="column-numbers" id="jours_vacci">
+                        {{ \Carbon\Carbon::parse($pays->date_debut)->diffInDays() }} jours
                     </div>
                     <div class="column-label">
                         Depuis le début de la vaccination
@@ -35,7 +35,7 @@
                     <div class="column-img">
                         <img src="img/icon-seringue.png" alt="">
                     </div>
-                    <div class="column-numbers">
+                    <div class="column-numbers" id="doses">
                         10.000
                     </div>
                     <div class="column-label">
@@ -48,7 +48,7 @@
                     <div class="column-img">
                         <img src="img/icon-couverture.png" alt="">
                     </div>
-                    <div class="column-numbers">
+                    <div class="column-numbers" id="couverture_vaccinale">
                         65%
                     </div>
                     <div class="column-label">
@@ -59,7 +59,7 @@
                     <div class="column-img">
                         <img src="img/icon-medical.png" alt="">
                     </div>
-                    <div class="column-numbers">
+                    <div class="column-numbers" id="pers_vacci">
                         100000
                     </div>
                     <div class="column-label">
@@ -72,7 +72,7 @@
                     <div class="column-img">
                         <img src="img/icon-hopital.png" alt="">
                     </div>
-                    <div class="column-numbers">
+                    <div class="column-numbers" id="nbr_sites">
                         {{$pays->nbre_sites}}
                     </div>
                     <div class="column-label">
@@ -83,7 +83,7 @@
                     <div class="column-img">
                         <img src="img/icon-camion.png" alt="">
                     </div>
-                    <div class="column-numbers">
+                    <div class="column-numbers" id="doses_livres">
                         1000000
                     </div>
                     <div class="column-label">
@@ -94,6 +94,40 @@
         </div>
     </div>
     <div id="map" class="col-md-5">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Sites de vaccination</h2>
+        <table class="table table-primary" id="site_vacc">
+            <thead>
+                <tr>
+                  <th scope="col">Nom du site</th>
+                  <th scope="col">Adresse</th>
+                  <th scope="col">Horaire de travail</th>
+                  <th scope="col">Contact</th>
+                </tr>
+              </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <h2>Situations des Villes pour la province : <span></span></h2>
+        <table class="table table-primary" id="tab_villes">
+            <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Population</th>
+                </tr>
+              </thead>
+            <tbody>
+                <tr>
+                    <td>helle</td>
+                    <td>helle</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection
