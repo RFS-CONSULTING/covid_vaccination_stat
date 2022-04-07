@@ -12,6 +12,7 @@ var nbr_sites = document.querySelector('#nbr_sites')
 var doses_livres = document.querySelector('#doses_livres')
 var table_body = document.querySelector('#site_vacc tbody')
 var table_body_ville = document.querySelector('#tab_villes tbody')
+var province_name = document.querySelector('#province_name')
 
 
 var map = L.map('map', {
@@ -60,7 +61,15 @@ function handle_province_polygon(feature, layer) {
             jours_vacci.innerHTML = province.date_debut ? province.date_debut + ' jours' : 0 + ' jours'
         })
         pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0
-    })
+        province_name.innerHTML = feature.properties.nom
+    });
+    layer.on('mouseover', function(e) {
+        e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
+    });
+    layer.on('mouseout', function(e) {
+        e.target.setStyle({ fillColor: "white", fillOpacity: 1 });
+    });
+    layer.bindPopup("infos");
 }
 
 

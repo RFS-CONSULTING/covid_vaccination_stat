@@ -17,6 +17,7 @@
             <a class="navbar-brand text-white" href="/">
                 <img src="img/rfs_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> RFS Consulting
             </a>
+            <span class="text-white">mise à jour le 10/01/2022</span>
         </div>
     </nav>
     <div class="container">

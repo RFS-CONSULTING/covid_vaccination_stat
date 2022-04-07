@@ -13,7 +13,11 @@
 <div class="row mt-4 mb-6">
     <div class="col-md-12">
         <h1>Statistiques sur la vaccination contre la COVID-19 en RDC</h1>
-        <span>mise à jour le 10/01/2022</span>
+    </div>
+</div>
+<div class="row mt-4 mb-6">
+    <div class="col-md-12">
+        <h1 class="text-center" id="province_name"></h1>
     </div>
 </div>
 <div class="row">
