@@ -133,5 +133,11 @@
             </tbody>
         </table>
     </div>
+    <div class="col-md-12">
+        <h2>Progression personnes vaccinées lors de la première dose</h2>
+        <div class="charts">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
 </div>
 @endsection
