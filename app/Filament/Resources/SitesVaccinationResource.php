@@ -24,6 +24,8 @@ class SitesVaccinationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationLabel = 'sites vaccination par province';
+
     public static function form(Form $form): Form
     {
         return $form

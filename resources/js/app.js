@@ -62,22 +62,37 @@ function handle_province_polygon(feature, layer) {
         })
         pers_vacci.innerHTML = feature.properties.pers_vacci ? feature.properties.pers_vacci : 0
         province_name.innerHTML = feature.properties.nom
+        let intcouv = (parseInt(feature.properties.pers_vacci) / parseInt(feature.properties.pop_totale)).toFixed(4)
+        couverture.innerHTML = intcouv.toString() + '%'
     });
     layer.on('mouseover', function(e) {
-        e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
+        e.target.setStyle({ fillColor: "#f48574", fillOpacity: .8 });
+        e.target.bindPopup(feature.properties.nom);
     });
     layer.on('mouseout', function(e) {
-        e.target.setStyle({ fillColor: "white", fillOpacity: 1 });
+        e.target.setStyle({ fillColor: "#c6e9a3", fillOpacity: 1 });
     });
-    layer.bindPopup("infos");
+
 }
 
 
-function handle_province_points(feature, layer) {
-    layer.on('click', function(e) {
+function handle_province_points(feature, layer) {}
 
-        // e.target.setStyle({ fillColor: "black", fillOpacity: 1 });
-    });
+function province_points_style(feature) {
+    return {
+        pane: 'pane_points',
+        radius: 10.0,
+        opacity: 1,
+        color: 'rgba(35,35,35,1.0)',
+        dashArray: '',
+        lineCap: 'butt',
+        lineJoin: 'miter',
+        weight: 1.0,
+        fill: true,
+        fillOpacity: 1,
+        fillColor: 'rgba(232,112,0,1.0)',
+        interactive: true,
+    }
 }
 
 // #endregion
@@ -126,10 +141,9 @@ axios.get('/provinces_layer').then(data => {
         layerName: 'provinces_pays',
         style: function() {
             return {
-                color: "#00008c",
                 opacity: 0.6,
-                fillColor: '#fff',
-                fillOpacity: 1
+                fillColor: '#c6e9a3',
+                fillOpacity: 0.5
             }
         }
     }).addTo(map)
@@ -144,30 +158,27 @@ axios.get('/provinces_layer').then(data => {
 axios.get('/vaccination_layer').then(data => {
     let StoredData = data.data.dataVaccination_layer;
     let points_data_geojson = JSON.parse(StoredData);
-    var MarkerOptions = {
-        radius: 8,
-        fillColor: "#ff7800",
-        color: "#00c",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-    };
-
     // var greenIcon = new L.Icon({
     //     iconUrl: '/img/pointer2.png',
     // })
-
     map.createPane('pane_points');
-    map.getPane('pane_points').style.zIndex = 403;
+    map.getPane('pane_points').style.zIndex = 404;
     map.getPane('pane_points').style['mix-blend-mode'] = 'normal';
 
     let points_layer = L.geoJSON(points_data_geojson, {
         onEachFeature: handle_province_points,
         // pointToLayer: function(feature, latlng) {
         //     return L.marker(latlng, { icon: greenIcon });
-        // },
+        // }, pour changer l'image du point
         pane: 'pane_points',
         layerName: 'provinces_points',
+        pointToLayer: function(feature, latlng) {
+            var context = {
+                feature: feature,
+                variables: {}
+            };
+            return L.circleMarker(latlng, province_points_style(feature));
+        },
     }).addTo(map)
 
     // ajout du layer des points sur le control layer

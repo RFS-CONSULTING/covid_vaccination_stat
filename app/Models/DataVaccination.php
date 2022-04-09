@@ -11,7 +11,9 @@ class DataVaccination extends Model
     use HasFactory;
 
     protected $table = 'data_vaccination_covid19_rdc02';
-
+    protected $fillable = ['nom','pop_totale','pers_vacci','nbre_sites'
+    ,'nbre_jours','pop_adulte','pers_cib_v'];
+    public $timestamps = false;
 
     public static function allAsGeojson()
     {

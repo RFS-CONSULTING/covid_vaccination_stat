@@ -22,6 +22,8 @@ class LimitPaysResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationLabel = 'Données général Pays';
+
     public static function form(Form $form): Form
     {
         return $form

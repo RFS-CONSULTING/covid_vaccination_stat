@@ -19,6 +19,8 @@ class LimitProvinceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationLabel = 'Données provinces';
+
     public static function form(Form $form): Form
     {
         return $form

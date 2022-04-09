@@ -22,14 +22,15 @@ class DataVaccinationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationLabel = 'Données première dose';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
                 TextInput::make('nom'),
-                TextInput::make('chef_lieu'),
-                TextInput::make('pop_total'),
+                TextInput::make('pop_totale'),
                 TextInput::make('pers_vacci'),
                 TextInput::make('nbre_sites'),
                 TextInput::make('nbre_jours'),

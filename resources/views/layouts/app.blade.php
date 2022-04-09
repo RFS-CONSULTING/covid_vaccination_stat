@@ -12,11 +12,18 @@
 </head>
 
 <body>
-    <nav class="navbar position-sticky sticky-top navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg position-sticky sticky-top navbar-light bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="/">
                 <img src="img/rfs_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> RFS Consulting
             </a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link text-white active" aria-current="page" href="#">première dose</a>
+                  <a class="nav-link text-white" href="#">Deuxième dose</a>
+                  <a class="nav-link text-white" href="#">Trosième dose</a>
+                </div>
+            </div>
             <span class="text-white">mise à jour le 10/01/2022</span>
         </div>
     </nav>

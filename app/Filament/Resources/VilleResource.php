@@ -24,6 +24,8 @@ class VilleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationLabel = 'Données villes';
+
     public static function form(Form $form): Form
     {
         return $form
