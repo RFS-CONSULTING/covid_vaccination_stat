@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg position-sticky sticky-top navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg position-sticky sticky-top navbar-light" id="nav-local">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="/">
                 <img src="img/rfs_logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> RFS Consulting
@@ -27,7 +27,7 @@
             <span class="text-white">mise à jour le 10/01/2022</span>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid" id="container">
         @yield('content')
     </div>
     <footer>

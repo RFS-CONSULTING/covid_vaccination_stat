@@ -20,7 +20,8 @@ axios.get('/provinces_layer').then(data => {
             datasets: [{
                 label: 'Progression Personnes vaccinés',
                 data: personnes_vacci,
-                borderWidth: 1
+                borderWidth: 1,
+                backgroundColor: "#c6e9a3"
             }]
         },
         options: {

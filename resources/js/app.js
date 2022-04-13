@@ -70,7 +70,7 @@ function handle_province_polygon(feature, layer) {
         e.target.bindPopup(feature.properties.nom);
     });
     layer.on('mouseout', function(e) {
-        e.target.setStyle({ fillColor: "#c6e9a3", fillOpacity: 1 });
+        e.target.setStyle({ fillColor: "#c6e9a3", fillOpacity: 0.5 });
     });
 
 }

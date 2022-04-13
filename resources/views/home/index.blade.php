@@ -12,7 +12,7 @@
 @section('content')
 <div class="row mt-4 mb-6">
     <div class="col-md-12">
-        <h1>Statistiques sur la vaccination contre la COVID-19 en RDC</h1>
+        <h1 class="text-center">Statistiques sur la vaccination contre la COVID-19 en RDC</h1>
     </div>
 </div>
 <div class="row mt-4 mb-6">
@@ -20,8 +20,8 @@
         <h1 class="text-center" id="province_name"></h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-6 stats">
+<div class="row" id="map_stat">
+    <div class="col-md-4 stats">
         <div class="row stats-items">
             <div class="col-md-12 mb-2 stats-items-item-row">
                 <div class="column">
@@ -97,7 +97,7 @@
             </div>
         </div>
     </div>
-    <div id="map" class="col-md-5">
+    <div id="map" class="col-md-7">
     </div>
 </div>
 <div class="row">

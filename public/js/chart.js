@@ -15792,7 +15792,8 @@ axios__WEBPACK_IMPORTED_MODULE_1___default().get('/provinces_layer').then(functi
       datasets: [{
         label: 'Progression Personnes vaccinés',
         data: personnes_vacci,
-        borderWidth: 1
+        borderWidth: 1,
+        backgroundColor: "#c6e9a3"
       }]
     },
     options: {
