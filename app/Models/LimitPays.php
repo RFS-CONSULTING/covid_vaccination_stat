@@ -10,7 +10,7 @@ class LimitPays extends Model
 {
     use HasFactory;
 
-    protected $table = 'limit_pays';
+    protected $table = 'limite_du_pays';
     protected $primaryKey = 'ogc_fid';
     public $timestamps = false;
     protected $fillable = ['nom','chef_lieu','pop_totale','pers_vacci','nbre_sites','nbre_jours','pop_adulte'];

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('limit_pays', function (Blueprint $table) {
+        Schema::table('limite_du_pays', function (Blueprint $table) {
             //
             $table->date('date_debut')->default('10-Jan-2021');
         });

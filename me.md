@@ -1,0 +1,4 @@
+- créer un utilisateur sur postgres
+- configurer psql comme driver à utiliser pour la bdd laravel
+- configurer l'utilisateur postgres pour les connexions
+- ALTER USER postgres PASSWORD 'monkeyDLuffy';
